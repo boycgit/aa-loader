@@ -8,19 +8,21 @@ let lastLoadResult: IScriptsLoadResult = {};
 
 const App = () => {
   // 点击按钮之后才进行加载
-  const onClickLoadScript = () => {
+  const onClickLoadScript = (inHead = false) => () => {
     lastLoadResult = {}; // 清空
 
     loadScriptsQueue(assetArray, {
       baseUrl: BASEURL,
-      lastLoadResult
+      lastLoadResult,
+      inHead
     }).then(result => {
       console.log('load result: ', result);
     });
   };
   return (
     <div>
-      <Button onClick={onClickLoadScript}>点击加载脚本</Button>
+      <Button onClick={onClickLoadScript()}>点击加载脚本</Button>
+      <Button onClick={onClickLoadScript(true)}>点击加载脚本(head)</Button>
     </div>
   );
 };

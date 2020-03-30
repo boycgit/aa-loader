@@ -13,7 +13,7 @@
     "url": "https://github.com/one-gourd/aa-loader.git"
   },
   "scripts": {
-    "dev": "ide-cli dev -p 8001",
+    "dev": "ide-cli dev -p 8002",
     "test": "./node_modules/.bin/jest",
     "install:peers": "ide-cli install --use tnpm",
     "install:all": "tnpm install && npm run install:peers",

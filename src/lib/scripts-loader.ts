@@ -10,10 +10,10 @@ import { IAssetConfig, depsParser } from "./parser-deps";
  * @param {string} url - js url 地址
  * @param {()=>void} callback - 加载完成后执行的回调函数
  */
-export function loadScript(url: string) {
+export function loadScript(url: string, inHead = false) {
     return new Promise(function (resolve, reject) {
-        // Adding the script tag to the head as suggested before
-        var head = document.head;
+        // Adding the script tag to the head/body as suggested before
+        var targetPos = inHead ? document.head : document.body;
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = url;
@@ -26,7 +26,7 @@ export function loadScript(url: string) {
         script.onerror = reject;
 
         // Fire the loading
-        head.appendChild(script);
+        targetPos.appendChild(script);
     })
 }
 
@@ -51,6 +51,14 @@ export interface ILoaderConfig {
      * @memberof ILoaderConfig
      */
     lastLoadResult?: IScriptsLoadResult;
+
+    /**
+     * 加载的脚本是放在 head 还是 body 中
+     *
+     * @type {boolean}
+     * @memberof ILoaderConfig
+     */
+    inHead?: boolean;
 }
 
 
@@ -65,7 +73,7 @@ export const loadScripts = async (
     scripts: IAssetConfig[],
     config: ILoaderConfig = {}
 ) => {
-    const { baseUrl = '', lastLoadResult } = config;
+    const { baseUrl = '', lastLoadResult, inHead = false } = config;
     return await Promise.all(
         scripts.map(async (script: IAssetConfig) => {
             const { name, path, deps } = script;
@@ -89,7 +97,7 @@ export const loadScripts = async (
                 }
 
                 if (shouldLoad) {
-                    return await loadScript(baseUrl + path)
+                    return await loadScript(baseUrl + path, inHead)
                         .then(() => {
                             return successResult;
                         })
@@ -157,7 +165,7 @@ export const loadScriptsQueue = async (assetArray: IAssetConfig[], config: ILoad
     // @ts-ignore
     for await (const item of createScriptsLoadIterator(assetArray, config)) {
         config.lastLoadResult = config.lastLoadResult || {};
-        console.log('current: ', item);
+        console.log('current load: ', item);
         item.forEach((curResult: IScriptsLoadResult) => {
             config.lastLoadResult = {
                 ...config.lastLoadResult,
