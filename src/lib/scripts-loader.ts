@@ -18,6 +18,7 @@ export function loadScript(url: string, inHead = false) {
         script.type = 'text/javascript';
         script.src = url;
 
+        script.crossOrigin = 'anonymous'; // 以 cors 方式进行请求
         // Then bind the event to the callback function.
         // There are several events for cross browser compatibility.
         // @ts-ignore
