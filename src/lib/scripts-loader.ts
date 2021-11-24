@@ -98,7 +98,9 @@ export const loadScripts = async (
                 }
 
                 if (shouldLoad) {
-                    return await loadScript(baseUrl + path, inHead)
+                    // 如果 path 是相对路径需要跟 baseUrl 拼接，否则使用当前的 path
+                    const isAbsPath = path.indexOf('http') === 0 || path.indexOf('//:') === 0;
+                    return await loadScript(isAbsPath ? path : baseUrl + path, inHead)
                         .then(() => {
                             return successResult;
                         })

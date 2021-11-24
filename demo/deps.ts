@@ -56,5 +56,10 @@ export const assetArray = [
         name: 'ideLibEngine',
         path: 'ide-lib-engine.js',
         deps: ['ideModelUtils', 'ideBaseComponent']
+    },
+    {
+        name: 'ideDslUtils',
+        path: 'https://dev.g.alicdn.com/lf/lf-canvas-assets/0.1.19/lf-x6/lf-dsl-utils/dist/index.umd.js',
+        deps: ['ideModelUtils']
     }
 ]
