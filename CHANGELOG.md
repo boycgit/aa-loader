@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.1.5](https://github.com/one-gourd/aa-loader/compare/v0.1.4...v0.1.5) (2021-11-24)
+
+
+### Features
+
+* 🎸 功能完善: 支持绝对路径配置 ([b7beb39](https://github.com/one-gourd/aa-loader/commit/b7beb39adce6b39cdb52ef93ec65e424a412e705))
 
 ## [0.1.4](https://github.com/one-gourd/aa-loader/compare/v0.1.3...v0.1.4) (2020-09-26)
 
